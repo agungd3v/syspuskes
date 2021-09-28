@@ -7,6 +7,9 @@ use App\Obat;
 use App\Kategori;
 use App\ObatKeluar;
 use App\ObatMasuk;
+use App\SumberObatKeluar;
+use App\SumberObatMasuk;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Storage;
 
 class ObatController extends Controller
@@ -22,8 +25,7 @@ class ObatController extends Controller
       'kategori_id' => 'required',
       'nama_obat' => 'required',
       'deskripsi_obat' => 'required',
-      'harga_obat' => 'required',
-      'stok_obat' => 'required'
+      'tanggal_kadaluarsa' => 'required',
     ]);
 
     $obat = new Obat();
@@ -48,8 +50,8 @@ class ObatController extends Controller
       $obat->nama_obat = $request->nama_obat;
       $obat->kategori_id = $request->kategori_id;
       $obat->deskripsi_obat = $request->deskripsi_obat;
-      $obat->harga_obat = intval($request->harga_obat);
-      $obat->stok_obat = intval($request->stok_obat);
+      $obat->tanggal_kadaluarsa = $request->tanggal_kadaluarsa;
+      $obat->stok_obat = 0;
       $obat->save();
 
       return redirect()->route('obat.index')->with('berhasil', 'Berhasil menambah stok obat');
@@ -63,7 +65,7 @@ class ObatController extends Controller
       'kategori_id_edit' => 'required',
       'nama_obat_edit' => 'required',
       'deskripsi_obat_edit' => 'required',
-      'harga_obat_edit' => 'required'
+      'tanggal_kadaluarsa_edit' => 'required'
     ]);
 
     $obat = Obat::find($id);
@@ -93,7 +95,7 @@ class ObatController extends Controller
       $obat->nama_obat = $request->nama_obat_edit;
       $obat->kategori_id = $request->kategori_id_edit;
       $obat->deskripsi_obat = $request->deskripsi_obat_edit;
-      $obat->harga_obat = intval($request->harga_obat_edit);
+      $obat->tanggal_kadaluarsa = $request->tanggal_kadaluarsa_edit;
       $obat->save();
 
       return redirect()->route('obat.index')->with('berhasil', 'Berhasil mengubah data obat');
@@ -117,17 +119,20 @@ class ObatController extends Controller
 
   public function obatkeluar() {
     $obats = Obat::orderBy('nama_obat', 'asc')->get();
-    $obatkeluars = ObatKeluar::orderBy('total', 'asc')->get();
-    return view('dashboard.admin.obat.keluar', compact('obats', 'obatkeluars'));
+    $sumbers = SumberObatKeluar::orderBy('nama_sumber', 'asc')->get();
+    $obatkeluars = ObatKeluar::orderBy('jumlah', 'asc')->get();
+    return view('dashboard.admin.obat.keluar', compact('obats', 'obatkeluars', 'sumbers'));
   }
 
   public function obatkeluarstore(Request $request) {
     $request->validate([
       'obat_id' => 'required',
+      'sumber_id' => 'required',
       'jumlah' => 'required'
     ]);
 
     $reqObat = json_decode($request->obat_id);
+    $reqSumber = json_decode($request->sumber_id);
     $reqJumlah = $request->jumlah;
 
     if ($reqObat->stok_obat < $reqJumlah) {
@@ -135,12 +140,13 @@ class ObatController extends Controller
     }
 
     $obat = Obat::find($reqObat->id);
+    $sumber = SumberObatKeluar::find($reqSumber->id);
     $obatKeluar = new ObatKeluar();
 
     if ($obat) {
       $obatKeluar->obat_id = $obat->id;
+      $obatKeluar->sumber_id = $sumber->id;
       $obatKeluar->jumlah = $reqJumlah;
-      $obatKeluar->total = ($obat->harga_obat * $reqJumlah);
       $obatKeluar->save();
 
       $obat->stok_obat = ($obat->stok_obat - $reqJumlah);
@@ -157,7 +163,7 @@ class ObatController extends Controller
     if ($obatkeluar) {
       $obat = Obat::find($obatkeluar->obat_id);
       if ($obat) {
-        $obat->stok_obat = ($obat->stok_obat + $obatkeluar->jumlah);
+        $obat->stok_obat += $obatkeluar->jumlah;
         $obat->save();
 
         $obatkeluar->delete();
@@ -173,33 +179,33 @@ class ObatController extends Controller
 
   public function obatmasuk() {
     $obats = Obat::orderBy('nama_obat', 'asc')->get();
-    $obatmasuks = ObatMasuk::orderBy('total', 'asc')->get();
-    return view('dashboard.admin.obat.masuk', compact('obats', 'obatmasuks'));
+    $sumbers = SumberObatMasuk::orderBy('nama_sumber', 'asc')->get();
+    $obatmasuks = ObatMasuk::orderBy('jumlah', 'asc')->get();
+    return view('dashboard.admin.obat.masuk', compact('obats', 'obatmasuks', 'sumbers'));
   }
 
   public function obatmasukstore(Request $request) {
     $request->validate([
       'obat_id' => 'required',
+      'sumber_id' => 'required',
       'jumlah' => 'required'
     ]);
 
     $reqObat = json_decode($request->obat_id);
+    $reqSumber = json_decode($request->sumber_id);
     $reqJumlah = $request->jumlah;
 
-    if ($reqObat->stok_obat < $reqJumlah) {
-      return redirect()->route('obat.masuk.index')->with('errorMessage', 'Jumlah melebihi stok yang tersedia');
-    }
-
     $obat = Obat::find($reqObat->id);
+    $sumber = SumberObatMasuk::find($reqSumber->id);
     $obatMasuk = new ObatMasuk();
 
     if ($obat) {
       $obatMasuk->obat_id = $obat->id;
+      $obatMasuk->sumber_id = $sumber->id;
       $obatMasuk->jumlah = $reqJumlah;
-      $obatMasuk->total = ($obat->harga_obat * $reqJumlah);
       $obatMasuk->save();
 
-      $obat->stok_obat = ($obat->stok_obat - $reqJumlah);
+      $obat->stok_obat += $reqJumlah;
       $obat->save();
 
       return redirect()->route('obat.masuk.index')->with('berhasil', 'Berhasil menambahkan obat masuk');
@@ -213,7 +219,7 @@ class ObatController extends Controller
     if ($obatmasuk) {
       $obat = Obat::find($obatmasuk->obat_id);
       if ($obat) {
-        $obat->stok_obat = ($obat->stok_obat + $obatmasuk->jumlah);
+        $obat->stok_obat = ($obat->stok_obat - $obatmasuk->jumlah);
         $obat->save();
 
         $obatmasuk->delete();
@@ -225,5 +231,20 @@ class ObatController extends Controller
     } else {
       return redirect()->route('obat.masuk.index')->with('errorMessage', 'Gagal menghapus data obat masuk');
     }
+  }
+
+  public function reportobatmasuk(Request $request) {
+    $obats = Obat::orderBy('nama_obat', 'asc')->get();
+    $pdf = PDF::loadview('dashboard.admin.report.obatmasuk', compact('obats'))->setPaper('A4', 'potrait');
+    return $pdf->stream();
+  }
+
+  public function reportobatkeluar(Request $request) {
+    if (!$request->date) {
+      return redirect()->route('obat.keluar.index')->with('errorMessage', 'Mohon pilih tanggal terlebih dahulu');
+    }
+    $obatkeluars = ObatKeluar::whereDate('created_at', $request->date)->get();
+    $pdf = PDF::loadview('dashboard.admin.report.obatkeluar', compact('obatkeluars'))->setPaper('A4', 'potrait');
+    return $pdf->stream();
   }
 }

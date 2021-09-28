@@ -11,4 +11,8 @@ class ObatMasuk extends Model
   public function obat() {
     return $this->belongsTo(Obat::class, 'obat_id', 'id');
   }
+
+  public function sumberobatmasuk() {
+    return $this->belongsTo(SumberObatMasuk::class, 'sumber_id', 'id');
+  }
 }

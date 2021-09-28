@@ -13,10 +13,10 @@ class Obat extends Model
   }
 
   public function obatkeluar() {
-    return $this->hasMany(ObatKeluar::class, 'obat_id', 'id');
+    return $this->hasMany(ObatKeluar::class, 'obat_id', 'id')->with('sumberobatkeluar');
   }
 
   public function obatmasuk() {
-    return $this->hasMany(ObatMasuk::class, 'obat_id', 'id');
+    return $this->hasMany(ObatMasuk::class, 'obat_id', 'id')->with('sumberobatmasuk');
   }
 }

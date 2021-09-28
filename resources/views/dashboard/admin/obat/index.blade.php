@@ -26,8 +26,7 @@
           <tr>
             <th style="width: 100%"><i class="fa fa-bullhorn"></i> Nama obat</th>
             <th class="hidden-phone" style="white-space: nowrap"><i class="fa fa-question-circle"></i> Kategori obat</th>
-            <th style="white-space: nowrap"><i class="fa fa-bookmark"></i> Harga obat</th>
-            <th style="white-space: nowrap"><i class=" fa fa-edit"></i> Stok obat</th>
+            <th style="white-space: nowrap"><i class=" fa fa-edit"></i> Tanggal kadaluarsa</th>
             <th></th>
           </tr>
         </thead>
@@ -36,8 +35,7 @@
             <tr>
               <td>{{ $obat->nama_obat }}</td>
               <td class="hidden-phone" style="white-space: nowrap">{{ $obat->kategori->nama_kategori }}</td>
-              <td>Rp {{ number_format($obat->harga_obat, 2, ',', '.') }}</td>
-              <td><strong>{{ $obat->stok_obat }}</strong></td>
+              <td><strong>{{ $obat->tanggal_kadaluarsa }}</strong></td>
               <td>
                 <div style="display: flex; gap: 6px; padding-left: 20px">
                   <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#openView{{ $obat->id }}"><i class="fa fa-check"></i> Detail</button>
@@ -76,9 +74,9 @@
                       </p>
                     </div>
                     <div class="form-group">
-                      <label>Harga obat</label>
+                      <label>Tanggal kadaluarsa</label>
                       <p>
-                        <strong>Rp {{ number_format($obat->harga_obat, 2, ',', '.') }}</strong>
+                        <strong>{{ $obat->tanggal_kadaluarsa }}</strong>
                       </p>
                     </div>
                     <div class="form-group">
@@ -122,8 +120,8 @@
                         <textarea name="deskripsi_obat_edit" id="deskripsi_obat_edit" class="form-control" cols="30" rows="4">{{ $obat->deskripsi_obat }}</textarea>
                       </div>
                       <div class="form-group">
-                        <label for="harga_obat_edit">Harga obat</label>
-                        <input type="number" name="harga_obat_edit" class="form-control" id="harga_obat_edit" value="{{ $obat->harga_obat }}">
+                        <label for="tanggal_kadaluarsa_edit">Tanggal kadaluarsa</label>
+                        <input type="date" name="tanggal_kadaluarsa_edit" class="form-control" id="tanggal_kadaluarsa_edit" value="{{ $obat->tanggal_kadaluarsa }}">
                       </div>
                       <div class="form-group">
                         <label for="gambar_obat_edit">
@@ -196,12 +194,8 @@
             <textarea name="deskripsi_obat" id="deskripsi_obat" class="form-control" cols="30" rows="4"></textarea>
           </div>
           <div class="form-group">
-            <label for="harga_obat">Harga obat</label>
-            <input type="number" name="harga_obat" class="form-control" id="harga_obat">
-          </div>
-          <div class="form-group">
-            <label for="stok_obat">Stok awal</label>
-            <input type="number" name="stok_obat" class="form-control" id="stok_obat">
+            <label for="tanggal_kadaluarsa">Tanggal kadaluarsa</label>
+            <input type="date" name="tanggal_kadaluarsa" class="form-control" id="tanggal_kadaluarsa">
           </div>
           <div class="form-group">
             <label for="gambar_obat">Gambar obat</label>

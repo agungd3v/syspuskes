@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="row mt">
-  <div class="col-md-12">
+  <div class="col-md-8">
     <div class="content-panel" style="padding: 20px">
       @if (session()->has('berhasil'))
         <div class="alert alert-info" role="alert">{{ session()->get('berhasil') }}</div>
@@ -16,61 +16,30 @@
           <div class="alert alert-danger" role="alert">{{ $error }}</div>
         @endforeach
       @endif
-      <table class="table table-striped table-advance table-hover" style="margin-bottom: 0">
+      <table class="table table-striped table-advance table-hover display" id="tbobatmasuk">
         <div style="display: flex; align-items: center; justify-content: space-between">
           <h4><i class="fa fa-angle-right"></i> Obat Masuk</h4>
           <button class="btn btn-primary" data-toggle="modal" data-target="#openObatMasuk">Tambah Obat Masuk</button>
         </div>
+        <div style="display: flex; align-items: center; justify-content: flex-end">
+          <form action="{{ route('obat.masuk.report') }}" method="POST">
+            @csrf
+            <button class="btn btn-warning" type="submit">Report Obat Masuk</button>
+          </form>
+        </div>
         <hr>
         <thead>
           <tr>
-            <th style="width: 100%"><i class="fa fa-bullhorn"></i> Nama obat</th>
-            <th class="hidden-phone" style="white-space: nowrap"><i class="fa fa-question-circle"></i> Kategori obat</th>
-            <th style="white-space: nowrap"><i class="fa fa-bookmark"></i> Harga obat</th>
-            <th style="white-space: nowrap"><i class=" fa fa-edit"></i> Tersedia</th>
-            <th style="white-space: nowrap" class="bg-success"><i class=" fa fa-edit"></i> Jumlah</th>
-            <th style="white-space: nowrap" class="bg-success"><i class=" fa fa-edit"></i> Total</th>
-            {{-- <th></th> --}}
+            <th></th>
+            <th>Nama obat</th>
+            <th>Kategori obat</th>
           </tr>
         </thead>
-        <tbody>
-          @foreach ($obatmasuks as $obatmasuk)
-            <tr style="cursor: pointer" data-toggle="modal" data-target="#datadel{{ $obatmasuk->id }}">
-              <td>{{ $obatmasuk->obat->nama_obat }}</td>
-              <td class="hidden-phone" style="white-space: nowrap">{{ $obatmasuk->obat->kategori->nama_kategori }}</td>
-              <td>Rp {{ number_format($obatmasuk->obat->harga_obat, 2, ',', '.') }}</td>
-              <td><strong>{{ $obatmasuk->obat->stok_obat }}</strong></td>
-              <td class="bg-success"><strong>{{ $obatmasuk->jumlah }}</strong></td>
-              <td style="white-space: nowrap" class="bg-info">Rp {{ number_format($obatmasuk->total, 2, ',', '.') }}</td>
-              {{-- <td>
-                <div style="display: flex; gap: 6px; padding-left: 20px">
-                  <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#openView{{ $obatkeluar->id }}"><i class="fa fa-check"></i> Detail</button>
-                </div>
-              </td> --}}
-            </tr>
-            <div class="modal fade" id="datadel{{ $obatmasuk->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Form Obat Keluar</h4>
-                  </div>
-                  <form action="{{ route('obat.masuk.delete', $obatmasuk->id) }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                      <span>Yakin ingin menghapus data obat masuk ini ?</span>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-danger">Hapus Data</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          @endforeach
-        </tbody>
+        <tbody></tbody>
       </table>
+      <form action="" method="POST" id="formdelete" style="display: none">
+        @csrf
+      </form>
     </div>
   </div>
 </div>
@@ -85,27 +54,22 @@
         @csrf
         <div class="modal-body">
           <div class="form-group">
-            <select name="obat_id" class="form-control" onchange="getObat(this.value)">
+            <select name="obat_id" class="form-control">
               <option value="" selected hidden>Pilih obat</option>
               @foreach ($obats as $obat)
-                @if ($obat->stok_obat)
-                  <option value="{{ $obat }}">{{ $obat->nama_obat }}</option>
-                @endif
+                <option value="{{ $obat }}">{{ $obat->nama_obat }}</option>
               @endforeach
             </select>
           </div>
-          <div class="form-group" id="showitm" style="display: none">
-            <table class="table table-bordered">
-              <tbody>
-                <tr>
-                  <td id="nama_obat" style="width: 100%"></td>
-                  <td id="harga_obat"></td>
-                  <td id="stok_obat"></td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="form-group">
+            <select name="sumber_id" class="form-control">
+              <option value="" selected hidden>Pilih sumber</option>
+              @foreach ($sumbers as $sumber)
+                <option value="{{ $sumber }}">{{ $sumber->nama_sumber }}</option>
+              @endforeach
+            </select>
           </div>
-          <div class="form-group" id="showout" style="display: none">
+          <div class="form-group">
             <label for="jumlah">Jumlah</label>
             <input type="number" name="jumlah" class="form-control" id="jumlah">
           </div>
@@ -120,22 +84,96 @@
 </div>
 @endsection
 
-@push('js')
-<script>
-  function getObat(obj) {
-    const data = JSON.parse(obj)
-    const tbNama = document.getElementById('nama_obat')
-    const tbHarga = document.getElementById('harga_obat')
-    const tbStok = document.getElementById('stok_obat')
-
-    document.getElementById('showitm').removeAttribute('style')
-    document.getElementById('showout').removeAttribute('style')
-    tbNama.textContent = data.nama_obat
-    tbHarga.textContent = new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR'
-    }).format(data.harga_obat)
-    tbStok.textContent = data.stok_obat
+@push('css')
+<link rel="stylesheet" href="{{ asset('datatables/datatables.min.css') }}">
+<style>
+  td.details-control {
+    background: url('/datatables/details_open.png') no-repeat center center;
+    cursor: pointer;
   }
+  tr.shown td.details-control {
+    background: url('/datatables/details_close.png') no-repeat center center;
+  }
+</style>
+@endpush
+
+@push('js')
+<script src="{{ asset('datatables/datatables.min.js') }}"></script>
+<script>
+  function deleteobatmasuk(urid) {
+    const form = document.getElementById('formdelete')
+    form.setAttribute('action', urid)
+    form.submit()
+  }
+  function format (d) {
+    let data = ''
+    $.each($(d.obatmasuk), function(key, dtx){
+      data += `
+        <tr>
+          <td>${dtx.sumberobatmasuk.nama_sumber}</td>
+          <td>${dtx.jumlah}</td>
+          <td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#datadel${dtx.id}">Delete</button></td>
+        </tr>
+        <div class="modal fade" id="datadel${dtx.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Form Obat Keluar</h4>
+              </div>
+              <div class="modal-body">
+                <span>Yakin ingin menghapus data obat masuk ini ?</span>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteobatmasuk('/dashboard/obat/masuk/delete/${dtx.id}')">Hapus Data</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    })
+    return `
+      <table class="table table-advance table-hover" style="margin-bottom: 0">
+        <tr class="bg-success">
+          <th>Nama sumber</th>
+          <th>Jumlah obat masuk</th>
+          <td>Action</th>
+        </tr>
+        ${data}
+      </table>
+    `
+  }
+ 
+  $(document).ready(function() {
+    var table = $('#tbobatmasuk').DataTable({
+      "ajax": "/api/obat",
+      "columns": [
+          {
+              "className":      'details-control',
+              "orderable":      false,
+              "data":           null,
+              "defaultContent": ''
+          },
+          { "data": "nama_obat" },
+          { "data": "kategori.nama_kategori" }
+      ],
+      "order": [[1, 'asc']]
+    });
+
+    $('#tbobatmasuk tbody').on('click', 'td.details-control', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+
+      if ( row.child.isShown() ) {
+        row.child.hide();
+        tr.removeClass('shown');
+      }
+      else {
+        row.child( format(row.data()) ).show();
+        tr.addClass('shown');
+      }
+    });
+  });
 </script>
 @endpush

@@ -16,11 +16,12 @@ class CreateObatMasuksTable extends Migration
         Schema::create('obat_masuks', function (Blueprint $table) {
           $table->id();
           $table->unsignedBigInteger('obat_id');
+          $table->unsignedBigInteger('sumber_id');
           $table->integer('jumlah');
-          $table->double('total');
           $table->timestamps();
 
           $table->foreign('obat_id')->references('id')->on('obats')->onUpdate('cascade')->onDelete('cascade');
+          $table->foreign('sumber_id')->references('id')->on('sumber_obat_masuks')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

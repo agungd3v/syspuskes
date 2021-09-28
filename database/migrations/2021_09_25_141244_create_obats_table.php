@@ -14,16 +14,17 @@ class CreateObatsTable extends Migration
     public function up()
     {
         Schema::create('obats', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('kategori_id');
-            $table->string('nama_obat');
-            $table->text('deskripsi_obat');
-            $table->double('harga_obat');
-            $table->integer('stok_obat');
-            $table->string('gambar_obat');
-            $table->timestamps();
+          $table->id();
+          $table->unsignedBigInteger('kategori_id');
+          $table->string('nama_obat');
+          $table->text('deskripsi_obat');
+          // $table->double('harga_obat');
+          $table->integer('stok_obat');
+          $table->string('gambar_obat');
+          $table->date('tanggal_kadaluarsa');
+          $table->timestamps();
 
-            $table->foreign('kategori_id')->references('id')->on('kategoris')->onUpdate('cascade')->onDelete('cascade');
+          $table->foreign('kategori_id')->references('id')->on('kategoris')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

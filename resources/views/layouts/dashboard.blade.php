@@ -14,6 +14,7 @@
   <link href="{{ asset('lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
+  @stack('css')
 </head>
 
 <body>
@@ -46,18 +47,27 @@
             </a>
           </li>
           <li class="sub-menu">
-            <a href="javascript:;" class="@yield('obat')@yield('kategori')">
-              <i class="fa fa-desktop"></i>
-              <span>Obat</span>
+            <a href="javascript:;" class="@yield('kategori')@yield('sumbermasuk')@yield('sumberkeluar')">
+              <i class="fa fa-folder"></i>
+              <span>Data</span>
             </a>
             <ul class="sub">
               <li class="@yield('kategori')">
                 <a href="{{ route('kategori.index') }}">Kategori obat</a>
               </li>
-              <li class="@yield('obat')">
-                <a href="{{ route('obat.index') }}">Stok obat</a>
+              <li class="@yield('sumbermasuk')">
+                <a href="{{ route('sumbermasuk.index') }}">Sumber obat masuk</a>
+              </li>
+              <li class="@yield('sumberkeluar')">
+                <a href="{{ route('sumberkeluar.index') }}">Sumber obat keluar</a>
               </li>
             </ul>
+          </li>
+          <li>
+            <a href="{{ route('obat.index') }}" class="@yield('obat')">
+              <i class="fa fa-desktop"></i>
+              <span>Entry data obat</span>
+            </a>
           </li>
           <li class="sub-menu">
             <a href="javascript:;" class="@yield('keluar')@yield('masuk')">
@@ -70,9 +80,6 @@
               </li>
               <li class="@yield('keluar')">
                 <a href="{{ route('obat.keluar.index') }}">Obat keluar</a>
-              </li>
-              <li>
-                <a href="#">Order</a>
               </li>
             </ul>
           </li>
