@@ -7,10 +7,11 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Auth::routes();
+Auth::routes([
+  'register' => false
+]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['prefix' => 'dashboard'], function() {
+Route::group(['prefix' => 'dashboard', 'middleware' => 'authadmin'], function() {
   Route::get('/', function() {
     return view('dashboard.admin.index');
   });

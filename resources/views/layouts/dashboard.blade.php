@@ -8,8 +8,8 @@
   <meta name="author" content="agungd3v">
   <meta name="keyword" content="Sistem Informasi Puskesmas">
   <title>SYSPUSKES</title>
-  <link href="{{ asset('img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  <link href="{{ asset('favicon.ico') }}" rel="icon">
+  <link href="{{ asset('favicon.ico') }}" rel="apple-touch-icon">
   <link href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -28,7 +28,8 @@
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
           <li>
-            <a class="logout" href="login.html">Logout</a>
+            <a class="logout" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">@csrf</form>
           </li>
         </ul>
       </div>
@@ -37,11 +38,11 @@
       <div id="sidebar" class="nav-collapse ">
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered">
-            <a href="profile.html"><img src="{{ asset('img/ui-sam.jpg') }}" class="img-circle" width="80"></a>
+            <a href="profile.html"><img src="{{ asset('favicon.jpg') }}" class="img-circle" width="80"></a>
           </p>
-          <h5 class="centered">Sam Soffes</h5>
+          <h5 class="centered">{{ Auth::user()->name }}</h5>
           <li class="mt">
-            <a href="/dashboard">
+            <a href="/dashboard" class="@yield('dashboard')">
               <i class="fa fa-dashboard"></i>
               <span>Dashboard</span>
             </a>
