@@ -234,17 +234,24 @@ class ObatController extends Controller
   }
 
   public function reportobatmasuk(Request $request) {
+    if (!$request->date) {
+      return redirect()->route('obat.masuk.index')->with('errorMessage', 'Mohon untuk memilih tanggal terlebih dahulu');
+    }
+    $isdate = $request->date;
     $obats = Obat::orderBy('nama_obat', 'asc')->get();
-    $pdf = PDF::loadview('dashboard.admin.report.obatmasuk', compact('obats'))->setPaper('A4', 'potrait');
+    $sumbers = SumberObatMasuk::orderBy('id', 'asc')->get();
+    $pdf = PDF::loadview('dashboard.admin.report.obatmasuk', compact('obats', 'sumbers', 'isdate'))->setPaper('A4', 'landscape');
     return $pdf->stream();
   }
 
   public function reportobatkeluar(Request $request) {
     if (!$request->date) {
-      return redirect()->route('obat.keluar.index')->with('errorMessage', 'Mohon pilih tanggal terlebih dahulu');
+      return redirect()->route('obat.keluar.index')->with('errorMessage', 'Mohon untuk memilih tanggal terlebih dahulu');
     }
-    $obatkeluars = ObatKeluar::whereDate('created_at', $request->date)->get();
-    $pdf = PDF::loadview('dashboard.admin.report.obatkeluar', compact('obatkeluars'))->setPaper('A4', 'potrait');
+    $isdate = $request->date;
+    $obats = Obat::orderBy('nama_obat', 'asc')->get();
+    $sumbers = SumberObatKeluar::orderBy('id', 'asc')->get();
+    $pdf = PDF::loadview('dashboard.admin.report.obatkeluar', compact('obats', 'sumbers', 'isdate'))->setPaper('A4', 'landscape');
     return $pdf->stream();
   }
 }

@@ -21,25 +21,49 @@
       background-color: aqua
     }
     .lsitm td {
-      background-color: rgba(255, 187, 0, 0.425);
+      background-color: greenyellow;
     }
   </style>
 </head>
 <body>
   <table>
     <tr>
-      <th></th>
-      <th align="left">Nama obat</th>
-      <th align="left">Sumber</th>
-      <th align="left">Jumlah</th>
+      <th rowspan="2" valign="middle">NO</th>
+      <th rowspan="2" valign="middle">NAMA OBAT</th>
+      <th rowspan="2" valign="middle">SATUAN</th>
+      <th rowspan="2" valign="middle">STOK</th>
+      <th colspan="{{ count($sumbers) }}">PEMAKAIAN / PENGURANGAN</th>
+      <th rowspan="2" valign="middle">TOTAL</th>
     </tr>
-    @foreach ($obatkeluars as $keluar)
-      <tr class="lsitm">
-        <td>{{ date('d / m / Y', strtotime($keluar->created_at)) }}</td>
-        <td>{{ $keluar->obat->nama_obat }}</td>
-        <td>{{ $keluar->sumberobatkeluar->nama_sumber }}</td>
-        <td>{{ $keluar->jumlah }}</td>
+    <tr>
+      @foreach ($sumbers as $sumber)
+        <th>{{ $sumber->nama_sumber }}</th>
+      @endforeach
+    </tr>
+    @foreach ($obats as $obat)
+      <tr>
+        <th>{{ $loop->iteration }}</th>
+        <td>{{ $obat->nama_obat }}</td>
+        <td>{{ $obat->kategori->nama_kategori }}</td>
+        <td>{{ $obat->stok_obat ? $obat->stok_obat : '-' }}</td>
+        @foreach ($sumbers as $sumber)
+          @php
+            $obtout = $obat->obatkeluar()->where('sumber_id', $sumber->id)->whereDate('created_at', $isdate)->first();
+          @endphp
+          @if (isset($obtout))
+            <td>{{ $obtout->jumlah }}</td>
+          @else
+            <td>-</td>
+          @endif
+        @endforeach
+        <td>
+          @php
+            $sumtotal = $obat->obatkeluar()->whereDate('created_at', $isdate)->sum('jumlah');
+            echo $sumtotal == 0 ? '-' : $sumtotal;
+          @endphp
+        </td>
       </tr>
     @endforeach
+  </table>
 </body>
 </html>

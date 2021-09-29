@@ -26,30 +26,44 @@
   </style>
 </head>
 <body>
-  @foreach ($obats as $obat)
-    @if (count($obat->obatmasuk) > 0)
-      <table>
-        <tr>
-          <th align="left">Nama obat</th>
-          <th align="left">Kategori obat</th>
-          <th align="left">Stok obat</th>
-        </tr>
-        <tr>
-          <td>{{ $obat->nama_obat }}</td>
-          <td>{{ $obat->kategori->nama_kategori }}</td>
-          <td>{{ $obat->stok_obat }}</td>
-        </tr>
-        <tr>
-          <th colspan="3">Daftar <span style="text-transform: lowercase">{{ $obat->nama_obat }}</span> masuk</th>
-        </tr>
-        @foreach ($obat->obatmasuk as $obatmasuk)
-          <tr class="lsitm">
-            <td colspan="2">{{ $obatmasuk->sumberobatmasuk->nama_sumber }}</td>
-            <td>{{ $obatmasuk->jumlah }}</td>
-          </tr>
+  <table>
+    <tr>
+      <th rowspan="2" valign="middle">NO</th>
+      <th rowspan="2" valign="middle">NAMA OBAT</th>
+      <th rowspan="2" valign="middle">SATUAN</th>
+      <th rowspan="2" valign="middle">STOK</th>
+      <th colspan="{{ count($sumbers) }}">PENERIMAAN</th>
+      <th rowspan="2" valign="middle">TOTAL</th>
+    </tr>
+    <tr>
+      @foreach ($sumbers as $sumber)
+        <th>{{ $sumber->nama_sumber }}</th>
+      @endforeach
+    </tr>
+    @foreach ($obats as $obat)
+      <tr>
+        <th>{{ $loop->iteration }}</th>
+        <td>{{ $obat->nama_obat }}</td>
+        <td>{{ $obat->kategori->nama_kategori }}</td>
+        <td>{{ $obat->stok_obat ? $obat->stok_obat : '-' }}</td>
+        @foreach ($sumbers as $sumber)
+          @php
+            $obtin = $obat->obatmasuk()->where('sumber_id', $sumber->id)->whereDate('created_at', $isdate)->first();
+          @endphp
+          @if (isset($obtin))
+            <td>{{ $obtin->jumlah }}</td>
+          @else
+            <td>-</td>
+          @endif
         @endforeach
-      </table>
-    @endif
-  @endforeach
+        <td>
+          @php
+            $sumtotal = $obat->obatmasuk()->whereDate('created_at', $isdate)->sum('jumlah');
+            echo $sumtotal == 0 ? '-' : $sumtotal;
+          @endphp
+        </td>
+      </tr>
+    @endforeach
+  </table>
 </body>
 </html>

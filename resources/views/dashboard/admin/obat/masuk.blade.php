@@ -21,9 +21,11 @@
           <h4><i class="fa fa-angle-right"></i> Obat Masuk</h4>
           <button class="btn btn-primary" data-toggle="modal" data-target="#openObatMasuk">Tambah Obat Masuk</button>
         </div>
-        <div style="display: flex; align-items: center; justify-content: flex-end">
+        <div style="display: flex; align-items: center; justify-content: flex-end; margin-top: 10px">
           <form action="{{ route('obat.masuk.report') }}" method="POST">
             @csrf
+            <input type="date" name="date" class="form-control">
+            <div style="width: 20px"></div>
             <button class="btn btn-warning" type="submit">Report Obat Masuk</button>
           </form>
         </div>
@@ -112,6 +114,8 @@
         <tr>
           <td>${dtx.sumberobatmasuk.nama_sumber}</td>
           <td>${dtx.jumlah}</td>
+          <td>${new Date(dtx.created_at).toLocaleDateString()}</td>
+          <td>${new Date(dtx.created_at).toLocaleTimeString()}</td>
           <td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#datadel${dtx.id}">Delete</button></td>
         </tr>
         <div class="modal fade" id="datadel${dtx.id}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -138,6 +142,8 @@
         <tr class="bg-success">
           <th>Nama sumber</th>
           <th>Jumlah obat masuk</th>
+          <th>Tanggal masuk</th>
+          <th>Jam masuk</th>
           <td>Action</th>
         </tr>
         ${data}

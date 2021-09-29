@@ -17,6 +17,6 @@ class Obat extends Model
   }
 
   public function obatmasuk() {
-    return $this->hasMany(ObatMasuk::class, 'obat_id', 'id')->with('sumberobatmasuk');
+    return $this->hasMany(ObatMasuk::class, 'obat_id', 'id')->with('sumberobatmasuk')->orderBy('sumber_id', 'asc');
   }
 }

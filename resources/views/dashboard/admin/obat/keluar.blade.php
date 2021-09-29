@@ -143,7 +143,7 @@
       <table class="table table-advance table-hover" style="margin-bottom: 0">
         <tr class="bg-danger">
           <th>Nama sumber</th>
-          <th>Jumlah obat</th>
+          <th>Jumlah obat keluar</th>
           <th>Tanggal keluar</th>
           <th>Jam keluar</th>
           <td>Action</th>
