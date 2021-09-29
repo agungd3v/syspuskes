@@ -45,7 +45,7 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="openObatKeluar" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="openObatKeluar" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -56,7 +56,7 @@
         @csrf
         <div class="modal-body">
           <div class="form-group">
-            <select name="obat_id" class="form-control">
+            <select name="obat_id" id="obat_id" class="form-control" style="width: 100%">
               <option value="" selected hidden>Pilih obat</option>
               @foreach ($obats as $obat)
                 @if ($obat->stok_obat)
@@ -66,7 +66,7 @@
             </select>
           </div>
           <div class="form-group">
-            <select name="sumber_id" class="form-control">
+            <select name="sumber_id" id="sumber_id" class="form-control" style="width: 100%">
               <option value="" selected hidden>Pilih sumber</option>
               @foreach ($sumbers as $sumber)
                 <option value="{{ $sumber }}">{{ $sumber->nama_sumber }}</option>
@@ -90,6 +90,7 @@
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('datatables/datatables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('select2/select2.min.css') }}">
 <style>
   td.details-control {
     background: url('/datatables/details_open.png') no-repeat center center;
@@ -103,6 +104,7 @@
 
 @push('js')
 <script src="{{ asset('datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('select2/select2.min.js') }}"></script>
 <script>
   function deleteobatmasuk(urid) {
     const form = document.getElementById('formdelete')
@@ -181,6 +183,31 @@
         row.child( format(row.data()) ).show();
         tr.addClass('shown');
       }
+    });
+
+    function matchCustom(params, data) {
+      if ($.trim(params.term) === '') {
+        return data;
+      }
+
+      if (typeof data.text === 'undefined') {
+        return null;
+      }
+
+      if (data.text.indexOf(params.term) > -1) {
+        var modifiedData = $.extend({}, data, true);
+        modifiedData.text += ' (matched)';
+        return modifiedData;
+      }
+      return null;
+    }
+
+    $("#obat_id").select2({
+      matcher: matchCustom
+    });
+
+    $("#sumber_id").select2({
+      matcher: matchCustom
     });
   });
 </script>
