@@ -7,7 +7,7 @@
   <meta name="description" content="Sistem Informasi Puskesmas">
   <meta name="author" content="agungd3v">
   <meta name="keyword" content="Sistem Informasi Puskesmas">
-  <title>SYSPUSKES</title>
+  <title>PUSKESMAS TEJO AGUNG</title>
   <link href="{{ asset('favicon.ico') }}" rel="icon">
   <link href="{{ asset('favicon.ico') }}" rel="apple-touch-icon">
   <link href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
