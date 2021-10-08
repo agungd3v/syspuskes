@@ -7,7 +7,7 @@
   <meta name="description" content="Sistem Informasi Puskesmas">
   <meta name="author" content="agungd3v">
   <meta name="keyword" content="Sistem Informasi Puskesmas">
-  <title>SYSPUSKES</title>
+  <title>PUSKESMAS TEJO AGUNG</title>
   <link href="{{ asset('favicon.ico') }}" rel="icon">
   <link href="{{ asset('favicon.ico') }}" rel="apple-touch-icon">
   <link href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -23,7 +23,7 @@
       <div class="sidebar-toggle-box">
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
       </div>
-      <a href="/dashboard" class="logo"><b>SYS<span>puskes</span></b></a>
+      <a href="/dashboard" class="logo"><b>PUSKES<span>TEJOAGUNG</span></b></a>
       <div class="nav notify-row" id="top_menu"></div>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
@@ -47,43 +47,58 @@
               <span>Dashboard</span>
             </a>
           </li>
-          <li class="sub-menu">
-            <a href="javascript:;" class="@yield('kategori')@yield('sumbermasuk')@yield('sumberkeluar')">
-              <i class="fa fa-folder"></i>
-              <span>Data</span>
-            </a>
-            <ul class="sub">
-              <li class="@yield('kategori')">
-                <a href="{{ route('kategori.index') }}">Kategori obat</a>
-              </li>
-              <li class="@yield('sumbermasuk')">
-                <a href="{{ route('sumbermasuk.index') }}">Sumber obat masuk</a>
-              </li>
-              <li class="@yield('sumberkeluar')">
-                <a href="{{ route('sumberkeluar.index') }}">Sumber obat keluar</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="{{ route('obat.index') }}" class="@yield('obat')">
-              <i class="fa fa-desktop"></i>
-              <span>Entry data obat</span>
-            </a>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;" class="@yield('keluar')@yield('masuk')">
-              <i class="fa fa-cogs"></i>
-              <span>Operasional</span>
-            </a>
-            <ul class="sub">
-              <li class="@yield('masuk')">
-                <a href="{{ route('obat.masuk.index') }}">Obat masuk</a>
-              </li>
-              <li class="@yield('keluar')">
-                <a href="{{ route('obat.keluar.index') }}">Obat keluar</a>
-              </li>
-            </ul>
-          </li>
+          @if (Auth::user()->role == 'gudang')
+            <li class="sub-menu">
+              <a href="javascript:;" class="@yield('kategori')@yield('sumbermasuk')@yield('sumberkeluar')">
+                <i class="fa fa-folder"></i>
+                <span>Data</span>
+              </a>
+              <ul class="sub">
+                <li class="@yield('kategori')">
+                  <a href="{{ route('kategori.index') }}">Kategori obat</a>
+                </li>
+                <li class="@yield('sumbermasuk')">
+                  <a href="{{ route('sumbermasuk.index') }}">Sumber obat masuk</a>
+                </li>
+                <li class="@yield('sumberkeluar')">
+                  <a href="{{ route('sumberkeluar.index') }}">Sumber obat keluar</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="{{ route('obat.index') }}" class="@yield('obat')">
+                <i class="fa fa-desktop"></i>
+                <span>Entry data obat</span>
+              </a>
+            </li>
+            <li class="sub-menu">
+              <a href="javascript:;" class="@yield('keluar')@yield('masuk')">
+                <i class="fa fa-cogs"></i>
+                <span>Operasional</span>
+              </a>
+              <ul class="sub">
+                <li class="@yield('masuk')">
+                  <a href="{{ route('obat.masuk.index') }}">Obat masuk</a>
+                </li>
+                <li class="@yield('keluar')">
+                  <a href="{{ route('obat.keluar.index') }}">Obat keluar</a>
+                </li>
+              </ul>
+            </li>
+          @else
+            <li>
+              <a href="{{ route('apotik.entry') }}" class="@yield('apotikentry')">
+                <i class="fa fa-desktop"></i>
+                <span>Entry data</span>
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('apotik.laporan') }}" class="@yield('apotiklaporan')">
+                <i class="fa fa-cogs"></i>
+                <span>Laporan</span>
+              </a>
+            </li>
+          @endif
         </ul>
       </div>
     </aside>
