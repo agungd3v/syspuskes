@@ -48,5 +48,9 @@
       @endforeach
     </tbody>
   </table>
+  <div style="position: fixed; bottom: 0; margin-left: 560px">
+    <div style="width: 136px; border: 1px solid #000"></div>
+    <span>( Kepala Puskesmas )</span>
+  </div>
 </body>
 </html>

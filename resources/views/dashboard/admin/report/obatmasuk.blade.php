@@ -65,5 +65,9 @@
       </tr>
     @endforeach
   </table>
+  <div style="position: fixed; bottom: 0; margin-left: 890px">
+    <div style="width: 136px; border: 1px solid #000"></div>
+    <span>( Kepala Puskesmas )</span>
+  </div>
 </body>
 </html>
