@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="row mt">
-  <div class="col-md-12">
+  <div class="col-md-7">
     <div class="content-panel" style="padding: 20px">
       @if (session()->has('berhasil'))
         <div class="alert alert-info" role="alert">{{ session()->get('berhasil') }}</div>
@@ -16,7 +16,7 @@
           <div class="alert alert-danger" role="alert">{{ $error }}</div>
         @endforeach
       @endif
-      <table class="table table-striped table-advance table-hover" style="margin-bottom: 0">
+      <table id="tb-obat" class="table table-striped table-advance table-hover" style="margin-bottom: 0">
         <div style="display: flex; align-items: center; justify-content: space-between">
           <h4><i class="fa fa-angle-right"></i> Stok obat</h4>
           <button class="btn btn-primary" data-toggle="modal" data-target="#openStok">Tambah Stok</button>
@@ -211,3 +211,16 @@
   </div>
 </div>
 @endsection
+
+@push('css')
+<link rel="stylesheet" href="{{ asset('datatables/datatables.min.css') }}">
+@endpush
+
+@push('js')
+<script src="{{ asset('datatables/datatables.min.js') }}"></script>
+<script>
+  $(document).ready(function() {
+    $('#tb-obat').DataTable();
+  });
+</script>
+@endpush

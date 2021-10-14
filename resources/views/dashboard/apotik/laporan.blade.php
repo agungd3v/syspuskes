@@ -36,7 +36,7 @@
         </form>
       </div>
       <hr>
-      <table class="table table-bordered">
+      <table id="tb-laporan" class="table table-bordered">
         <thead>
           <tr>
             <th>Nama obat</th>
@@ -62,3 +62,16 @@
   </div>
 </div>
 @endsection
+
+@push('css')
+<link rel="stylesheet" href="{{ asset('datatables/datatables.min.css') }}">
+@endpush
+
+@push('js')
+<script src="{{ asset('datatables/datatables.min.js') }}"></script>
+<script>
+  $(document).ready(function() {
+    $('#tb-laporan').DataTable();
+  });
+</script>
+@endpush

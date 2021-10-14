@@ -19,14 +19,14 @@
       <table class="table table-striped table-advance table-hover" style="margin-bottom: 0" id="tbobatkeluar">
         <div style="display: flex; align-items: center; justify-content: space-between">
           <h4><i class="fa fa-angle-right"></i> Obat keluar</h4>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#openObatKeluar">Tambah Obat Keluar</button>
+          <button class="btn btn-primary" data-toggle="modal" style="width: 160px" data-target="#openObatKeluar">Tambah Obat Keluar</button>
         </div>
         <div style="display: flex; align-items: center; justify-content: flex-end; margin-top: 10px">
           <form action="{{ route('obat.keluar.report') }}" method="POST">
             @csrf
             <input type="date" name="date" class="form-control">
             <div style="width: 20px"></div>
-            <button class="btn btn-warning" type="submit">Report Obat Keluar</button>
+            <button class="btn btn-warning" style="padding-left: 18px; padding-right: 18px" type="submit">Report Obat Keluar</button>
           </form>
         </div>
         <hr>
