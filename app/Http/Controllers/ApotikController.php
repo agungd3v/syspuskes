@@ -50,9 +50,10 @@ class ApotikController extends Controller
     if (!$request->from || !$request->to) {
       return redirect()->route('apotik.laporan')->with('errorMessage', 'Mohon untuk memilih jarak tanggal terlebih dahulu');
     }
-    $isdate = $request->date;
+    $from = $request->from;
+    $to = $request->to;
     $laporans = LaporanApotik::orderBy('created_at', 'asc')->whereBetween('created_at', [$request->from, $request->to])->get();
-    $pdf = PDF::loadview('dashboard.admin.report.apotik', compact('laporans'))->setPaper('A4', 'potrait');
+    $pdf = PDF::loadview('dashboard.admin.report.apotik', compact('laporans', 'from', 'to'))->setPaper('A4', 'potrait');
     return $pdf->stream();
   }
 }
