@@ -26,7 +26,32 @@
   </style>
 </head>
 <body>
-  <table>
+  <table style="margin-bottom: 5px; border: none">
+    <tr style="border: none">
+      <td style="border: none">
+        <img src="{{ public_path("LOGO_KOTA_METRO.png") }}" style="width: 50px">
+      </td>
+      <td style="border: none; width: 100%; text-align: center">
+        <span style="font-size: 30px; font-weight: bold">PUSKESMAS TEJO AGUNG</span>
+      </td>
+    </tr>
+  </table>
+  <div style="height: 1px; background: rgb(26, 25, 25);"></div>
+  <div style="height: 1px; background: rgb(32, 31, 31);"></div>
+  <div style="height: 1.5px; background: #000;"></div>
+  <div style="text-align: center; margin-top: 30px">
+    <span style="font-size: 15px; font-weight: bold">
+      <u>SURAT BUKTI BARANG KELUAR</u>
+    </span>
+  </div>
+  <table style="border: none; margin-top: 10px">
+    <tr style="border: none">
+      <td style="border: none">Tanggal</td>
+      <td style="border: none">:</td>
+      <td style="border: none; width: 100%">{{ date('d / m / Y', strtotime($isdate)) }}</td>
+    </tr>
+  </table>
+  <table style="margin-top: 30px">
     <tr>
       <th rowspan="2" valign="middle">NO</th>
       <th rowspan="2" valign="middle">NAMA OBAT</th>
@@ -65,6 +90,14 @@
       </tr>
     @endforeach
   </table>
+  <div style="position: fixed; bottom: 0; margin-left: 0">
+    <div style="width: 170px; border: 1px solid #000"></div>
+    <span>( Menyerahkan/Pengelola )</span>
+  </div>
+  <div style="position: fixed; bottom: 0; margin-left: 440px">
+    <div style="width: 145px; border: 1px solid #000"></div>
+    <span>( Kepala Kefarmasian )</span>
+  </div>
   <div style="position: fixed; bottom: 0; margin-left: 890px">
     <div style="width: 136px; border: 1px solid #000"></div>
     <span>( Kepala Puskesmas )</span>
