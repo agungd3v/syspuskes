@@ -44,7 +44,7 @@
   <script src="lib/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="lib/jquery.backstretch.min.js"></script>
   <script>
-    $.backstretch("puskesmas-tejo-agung-keliling.jpg", {
+    $.backstretch("IMG_20201229_103830.jpg", {
       speed: 500
     });
   </script>
