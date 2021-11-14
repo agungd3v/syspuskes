@@ -19,7 +19,7 @@
       <table id="tb-obat" class="table table-striped table-advance table-hover" style="margin-bottom: 0">
         <div style="display: flex; align-items: center; justify-content: space-between">
           <h4><i class="fa fa-angle-right"></i> Data obat</h4>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#openStok">Tambah Stok</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#openStok">Tambah Data Obat</button>
         </div>
         <hr>
         <thead>
@@ -49,7 +49,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Form Stok Obat</h4>
+                    <h4 class="modal-title" id="myModalLabel">Form Tambah Obat</h4>
                   </div>
                   <div class="modal-body">
                     <div class="form-group" style="display: flex; justify-content: center">
@@ -97,7 +97,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Form Stok Obat</h4>
+                    <h4 class="modal-title" id="myModalLabel">Form Obat</h4>
                   </div>
                   <form action="{{ route('obat.update', $obat->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -145,7 +145,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Form Stok Obat</h4>
+                    <h4 class="modal-title" id="myModalLabel">Form Obat</h4>
                   </div>
                   <form action="{{ route('obat.delete', $obat->id) }}" method="POST">
                     @csrf
@@ -171,7 +171,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Form Stok Obat</h4>
+        <h4 class="modal-title" id="myModalLabel">Form Obat</h4>
       </div>
       <form action="{{ route('obat.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
