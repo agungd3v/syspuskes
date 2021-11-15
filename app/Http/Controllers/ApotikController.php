@@ -30,6 +30,7 @@ class ApotikController extends Controller
       $apotik->nama_pasien = $request->nama_pasien;
       $apotik->jumlah = $request->jumlah;
       $apotik->dosis = $request->dosis . '/hari';
+      $apotik->created_at = $request->date;
       $apotik->save();
 
       $obat->stok_obat = ($obat->stok_obat - $request->jumlah);

@@ -49,6 +49,14 @@
             </div>
           </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="">Tanggal</label>
+                    <input type="date" class="form-control" name="date">
+                </div>
+            </div>
+        </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
