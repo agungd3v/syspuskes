@@ -29,10 +29,14 @@
   <table style="margin-bottom: 5px; border: none">
     <tr style="border: none">
       <td style="border: none">
-        <img src="{{ public_path("LOGO_KOTA_METRO.png") }}" style="width: 50px">
+        <img src="{{ public_path("LOGO_KOTA_METRO.png") }}" style="width: 70px">
       </td>
       <td style="border: none; width: 100%; text-align: center">
         <span style="font-size: 30px; font-weight: bold">PUSKESMAS TEJO AGUNG</span>
+        <p>Jl. A.Yani Gg.Blimbing No.2 Tejo Agung Kec.Metro Timur</p>
+      </td>
+      <td style="border: none">
+        <img src="{{ public_path("favicon.jpg") }}" style="width: 100px">
       </td>
     </tr>
   </table>

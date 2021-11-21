@@ -134,7 +134,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" onclick="deleteobatmasuk('/dashboard/obat/keluar/delete/${dtx.id}')">Hapus Data</button>
+                <button type="button" class="btn btn-danger" onclick="deleteobatmasuk('/dashboard/gudang/obat/keluar/delete/${dtx.id}')">Hapus Data</button>
               </div>
             </div>
           </div>
