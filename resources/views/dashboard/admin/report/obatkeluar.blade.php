@@ -95,15 +95,15 @@
       </tr>
     @endforeach
   </table>
-  <div style="position: fixed; bottom: 0; margin-left: 0">
+  <div style="position: relative; top: 150px; margin-left: 0">
     <div style="width: 170px; border: 1px solid #000"></div>
     <span>( Menyerahkan/Pengelola )</span>
   </div>
-  <div style="position: fixed; bottom: 0; margin-left: 440px">
+  <div style="position: relative; bottom: 50px; margin-left: 440px">
     <div style="width: 145px; border: 1px solid #000"></div>
     <span>( Kepala Kefarmasian )</span>
   </div>
-  <div style="position: fixed; bottom: 0; margin-left: 890px">
+  <div style="position: relative; top: 50px; margin-left: 890px">
     <div style="width: 136px; border: 1px solid #000"></div>
     <span>( Kepala Puskesmas )</span>
   </div>
