@@ -32,9 +32,9 @@
         <img src="{{ public_path("LOGO_KOTA_METRO.png") }}" style="width: 70px">
       </td>
       <td style="border: none; width: 100%; text-align: center">
-        <p style="text-align: center; line-height: 1; font-size: 30px; margin-bottom: 8px; font-weight: bold">DINAS KESEHATAN KOTA METRO</p>
-        <span style="font-size: 35px; font-weight: bold; line-height: 0.7; margin-bottom: 0">PUSKESMAS TEJO AGUNG</span>
-        <p style="line-height: 0.5; font-size: 20px; margin-bottom: 15px">Jl. A.Yani Gg.Blimbing No.2 Tejo Agung Kec.Metro Timur</p>
+        <p style="text-align: center; line-height: 1; font-size: 25px; margin-bottom: 8px; font-weight: bold">DINAS KESEHATAN KOTA METRO</p>
+        <span style="font-size: 30px; font-weight: bold; line-height: 0.7; margin-bottom: 0">PUSKESMAS TEJO AGUNG</span>
+        <p style="line-height: 0.5; font-size: 15px; margin-bottom: 15px">Jl. A.Yani Gg.Blimbing No.2 Tejo Agung Kec.Metro Timur</p>
       </td>
       <td style="border: none">
         <img src="{{ public_path("favicon.jpg") }}" style="width: 100px">
