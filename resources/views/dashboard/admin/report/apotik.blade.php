@@ -83,15 +83,15 @@
       @endforeach
     </tbody>
   </table>
-  <div style="position: relative; bottom: 150px; margin-left: 0">
+  <div style="position: relative; top: 150px; margin-left: 0">
     <div style="width: 143px; border: 1px solid #000"></div>
     <span>( Yang Menyerahkan )</span>
   </div>
-  <div style="position: relative; bottom: 50px; margin-left: 300px">
+  <div style="position: relative; top: 150px; margin-left: 300px">
     <div style="width: 120px; border: 1px solid #000"></div>
     <span>( Yang Menerima )</span>
   </div>
-  <div style="position: relative; bottom: 150px; margin-left: 560px">
+  <div style="position: relative; top: 150px; margin-left: 560px">
     <div style="width: 136px; border: 1px solid #000"></div>
     <span>( Kepala Puskesmas )</span>
   </div>
