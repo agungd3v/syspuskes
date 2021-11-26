@@ -99,11 +99,11 @@
     <div style="width: 170px; border: 1px solid #000"></div>
     <span>( Menyerahkan/Pengelola )</span>
   </div>
-  <div style="position: relative; top: 150px; margin-left: 440px">
+  <div style="position: relative; top: 131px; margin-left: 440px">
     <div style="width: 145px; border: 1px solid #000"></div>
     <span>( Kepala Kefarmasian )</span>
   </div>
-  <div style="position: relative; top: 150px; margin-left: 890px">
+  <div style="position: relative; top: 111px; margin-left: 890px">
     <div style="width: 136px; border: 1px solid #000"></div>
     <span>( Kepala Puskesmas )</span>
   </div>
