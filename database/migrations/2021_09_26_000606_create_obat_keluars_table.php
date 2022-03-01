@@ -14,9 +14,9 @@ class CreateObatKeluarsTable extends Migration
     public function up()
     {
         Schema::create('obat_keluars', function (Blueprint $table) {
-          $table->id();
-          $table->unsignedBigInteger('obat_id');
-          $table->unsignedBigInteger('sumber_id');
+          $table->integer('id')->autoIncrement();
+          $table->integer('obat_id');
+          $table->integer('sumber_id');
           $table->integer('jumlah');
           $table->timestamps();
 

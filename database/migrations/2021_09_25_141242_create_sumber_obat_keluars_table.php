@@ -14,7 +14,7 @@ class CreateSumberObatKeluarsTable extends Migration
     public function up()
     {
         Schema::create('sumber_obat_keluars', function (Blueprint $table) {
-          $table->id();
+          $table->integer('id')->autoIncrement();
           $table->string('nama_sumber');
           $table->timestamps();
         });

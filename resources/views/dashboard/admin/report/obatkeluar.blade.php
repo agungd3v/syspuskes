@@ -46,7 +46,7 @@
   <div style="height: 1.5px; background: #000;"></div>
   <div style="text-align: center; margin-top: 30px">
     <span style="font-size: 15px; font-weight: bold">
-      <u>SURAT BUKTI BARANG KELUAR</u>
+      <u>LAPORAN OBAT KELUAR</u>
     </span>
   </div>
   <table style="border: none; margin-top: 10px">

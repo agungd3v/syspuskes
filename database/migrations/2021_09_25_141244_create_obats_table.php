@@ -14,8 +14,8 @@ class CreateObatsTable extends Migration
     public function up()
     {
         Schema::create('obats', function (Blueprint $table) {
-          $table->id();
-          $table->unsignedBigInteger('kategori_id');
+          $table->integer('id')->autoIncrement();
+          $table->integer('kategori_id');
           $table->string('nama_obat');
           $table->text('deskripsi_obat');
           // $table->double('harga_obat');

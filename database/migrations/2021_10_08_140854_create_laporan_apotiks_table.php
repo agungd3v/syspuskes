@@ -14,8 +14,8 @@ class CreateLaporanApotiksTable extends Migration
     public function up()
     {
         Schema::create('laporan_apotiks', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('obat_id');
+            $table->integer('id')->autoIncrement();
+            $table->integer('obat_id');
             $table->string('nama_pasien');
             $table->integer('jumlah');
             $table->string('dosis');
